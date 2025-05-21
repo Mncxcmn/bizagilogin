@@ -3,7 +3,7 @@ import "./loginForm.scss";
 import { FaLock, FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-// import NewsSection from "./NewsSection";
+
 
 // Captcha
 const generateCaptcha = () => {
@@ -17,33 +17,6 @@ const generateCaptcha = () => {
 };
 
 
-// const generateRandomGradient = () => {
-//   const colors = [
-//     "#4e54c8",
-//     "#ffff",
-//     "#0000",
-//     "#FC466B",
-//     "#EDDD53",
-//     "#57C785",
-//     "#2A7B9B",
-//     "#090979",
-//     "#833AB4",
-//     "#EEAECA",
-//     "#94BBE9",
-//     "#acd7dd",
-//     "#e9a5c4",
-//     "#ff758c",
-//     "#43cea2",
-//     "#185a9d",
-//     "#f7797d",
-//     "#00c6ff",
-//     "#ffb400",
-//   ];
-//   const randomColor1 = colors[Math.floor(Math.random() * colors.length)];
-//   const randomColor2 = colors[Math.floor(Math.random() * colors.length)];
-
-//   return `linear-gradient(135deg, ${randomColor1}, ${randomColor2}, ${randomColor1})`;
-// };
 
 const LoginForm = () => {
   const { email, setEmail, password, setPassword } = useContext(AuthContext);
@@ -59,23 +32,16 @@ const LoginForm = () => {
 
   const navigate = useNavigate();
 
-  // // body dynamiccc
-  // useEffect(() => {
-  //   document.body.style.background = generateRandomGradient();
-  //   return () => {
-  //     document.body.className = ""; // removing class
-  //   };
-  // }, []);
 
   const validateForm = () => {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(email)) {
-      setErrorMessage("فرمت ایمیل نامعتبر ");
+      setErrorMessage("فرمت ایمیل نامعتبر است. ");
       return false;
     }
 
     if (password.length < 6) {
-      setErrorMessage("رمز عبور باید حداقل ۶ کاراکتر ");
+      setErrorMessage("رمز عبور باید حداقل ۶ کاراکتر باشد. ");
       return false;
     }
 
@@ -112,7 +78,7 @@ const LoginForm = () => {
         ) {
           navigate("/dashboard");
         } else {
-          setErrorMessage("ایمیل و یا رمز عبوری اشتباه");
+          setErrorMessage("ایمیل و یا رمز عبوری اشتباه است.");
         }
       } else {
         const user = { email, password };
@@ -133,7 +99,7 @@ const LoginForm = () => {
    
 
     <div className="login-container">
-      {/* Left side - just a styled div */}
+      {/* Left side  */}
       <div className="form-side">
          <div className={`form-animation ${isLogin ? 'login-mode' : 'signup-link'}`}>
     <div className="form-group">
@@ -174,13 +140,14 @@ const LoginForm = () => {
             </button>
           </div>
           <input
+          className="captcha-input"
             type="text"
             placeholder="Enter Captcha"
             value={userCaptcha}
             onChange={(e) => setUserCaptcha(e.target.value)}
             required
           />
-          {captchaError && <p className="error-message">{captchaError}</p>}
+          {captchaError && <p className="error-message-captcha">{captchaError}</p>}
         </div>
         {/* meow */}
         {errorMessage && <p className="error-message">{errorMessage}</p>}

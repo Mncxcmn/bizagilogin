@@ -5,7 +5,7 @@
   backdrop-filter: blur(10px);
   color: #fffffff2;
   border-radius: 16px;
-  padding: 2.5rem;
+  padding: 3rem ;
   margin: auto;
   position: relative;
   z-index: 10;
@@ -72,13 +72,16 @@
 }
 
 .remember-forgot label input {
-  accent-color: white;
+  accent-color: black;
   margin-left: 4px;
 }
 
 .remember-forgot a {
   color: white;
   text-decoration: none;
+}
+.signup-link .remember-forgot a {
+  display: none;
 }
 
 .remember-forgot a:hover {
@@ -120,9 +123,10 @@
 }
 
 .error-message {
+  position: relative;
   color: red;
   font-size: 0.9rem;
-  margin-top: 5px;
+  top: -30px;
 }
 
 .toggle-password {
@@ -139,31 +143,75 @@
   margin-bottom: 45px;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 10px;
   direction: ltr;
 }
 
 .captcha-box {
-  background-color: #978b8b;
-  padding: 8px 12px;
+  background-color: rgba(240, 139, 29, 0.1); 
+  
+  padding: 8px 15px;
   font-size: 18px;
   font-weight: bold;
   display: flex;
   align-items: center;
   gap: 10px;
-  border-radius: 23px;
+  border-radius: 8px;
+  color: #2e2e2e; 
 }
 
 .captcha-box button {
   background: none;
   border: none;
-  color: #0000008e;
+  color: #f08b1d; 
   cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
 }
 
 .captcha-box button:hover {
-  text-decoration: underline;
+  color: #cc710e; 
+  transform: scale(1.05);
 }
+
+
+.captcha-input {
+  padding: 10px 12px;
+  border: 1px solid rgba(46, 46, 46, 0.3); 
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2); 
+  width: 150px;
+  transition: border 0.3s;
+}
+
+.captcha-input:focus {
+  outline: none;
+  border-color: #f08b1d; 
+}
+
+
+
+  .error-message-captcha {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 6px;
+  padding: 5px 4px;
+  background: rgba(255, 77, 77, 0.1);
+  border-left: 3px solid red;
+  border-radius: 0 4px 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.error-message-captcha::before {
+  content: "⚠";
+  font-size: 10px;
+}
+
+
+
 
 .login-container {
   direction: rtl;
@@ -271,6 +319,7 @@
     width: 90%;
     padding: 1.5rem;
   }
+  
 
   .captcha-container {
     flex-direction: column;
@@ -309,4 +358,4 @@
   }
 }
 
-// Large Desktop (>1024px) — no need unless for ultra-wide support
+

@@ -17,7 +17,7 @@ body {
   width: 100vw;
   overflow: hidden;
   background: #2e2e2e;
-  /* background: linear-gradient(to right, #b3afd4, #d990e7); */
+  
 }
 
 * {
@@ -26,20 +26,7 @@ body {
   box-sizing: border-box;
 }
 
-// body.login-bg {
-// //   background: linear-gradient(135deg, #4e54c8, #010316);
-//   height: 100vh;
-//   width: 100vw;
-//   overflow: hidden;
-// }
 
-// /* گرادینت برای ثبت‌نام */
-// body.register-bg {
-// //   background: linear-gradient(135deg, #df82b8, #010316);
-//   height: 100vh;
-//   width: 100vw;
-//   overflow: hidden;
-// }
 
 .signup-link {
   animation: moveInBottom 0.5s ease-out 0.75s;
