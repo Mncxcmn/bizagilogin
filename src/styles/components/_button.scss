@@ -1,3 +1,20 @@
+.form-group button {
+  width: 100%;
+  height: 45px;
+  background: #f08b1d;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 700;
+  display: block;
+}
+
+
+
 .btn {
   &:link,
   &:visited {
@@ -51,3 +68,17 @@
   }
 }
 
+
+.captcha-box button {
+  background: none;
+  border: none;
+  color: #f08b1d; 
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.captcha-box button:hover {
+  color: #cc710e; 
+  transform: scale(1.05);
+}

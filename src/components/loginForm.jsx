@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import "./loginForm.scss";
-import { FaLock, FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaLock, FaUser, FaPhone, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
@@ -19,8 +19,10 @@ const generateCaptcha = () => {
 
 
 const LoginForm = () => {
-  const { email, setEmail, password, setPassword } = useContext(AuthContext);
+  const { email, setEmail, password, setPassword,name,setName,phone, setPhone, } = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(true);
+  // const [ phone, setPhone]= useState("")
+  // const [ name, setName]= useState("")
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,25 +31,74 @@ const LoginForm = () => {
   const [captcha, setCaptcha] = useState(generateCaptcha()); //  تصادفی
   const [userCaptcha, setUserCaptcha] = useState(""); // ورودی کاربر
   const [captchaError, setCaptchaError] = useState(""); // خطا
-
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const navigate = useNavigate();
+
+  const clearFormFields = () => {
+  setEmail("");
+  setPassword("");
+  setName("");
+  setPhone("");
+  setUserCaptcha("");
+  setCaptchaError("");
+  setErrorMessage("");};
 
 
   const validateForm = () => {
-    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailPattern.test(email)) {
-      setErrorMessage("فرمت ایمیل نامعتبر است. ");
-      return false;
-    }
+  let isValid = true;
 
-    if (password.length < 6) {
-      setErrorMessage("رمز عبور باید حداقل ۶ کاراکتر باشد. ");
-      return false;
-    }
+  const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+  const iranPhonePattern = /^(\+98|0)?9\d{9}$/;
 
-    setErrorMessage("");
-    return true;
-  };
+  // Reset previous errors
+  setEmailError("");
+  setPasswordError("");
+  setPhoneError("");
+
+  // Email
+  if (!emailPattern.test(email)) {
+    setEmailError("فرمت ایمیل نامعتبر است.");
+    isValid = false;
+  }
+
+  // Password
+  if (password.length < 6) {
+    setPasswordError("رمز عبور باید حداقل ۶ کاراکتر باشد.");
+    isValid = false;
+  }
+
+  // Phone (only if signing up)
+  if (!isLogin) {
+    if (!phone) {
+      setPhoneError("شماره تلفن الزامی است.");
+      isValid = false;
+    } else if (!iranPhonePattern.test(phone)) {
+      setPhoneError("فرمت شماره تلفن معتبر نیست.");
+      isValid = false;
+    }
+  }
+
+  return isValid;
+};
+  const handlePhoneChange = (e) => {
+  let value = e.target.value;
+  // Remove all non-digit characters
+  value = value.replace(/\D/g, '');
+  
+  // If it starts with 0, keep it, otherwise add 0
+  if (value.length > 0 && !value.startsWith('0')) {
+    value = '0' + value;
+  }
+  
+  // Limit to 11 digits max
+  if (value.length > 11) {
+    value = value.substring(0, 11);
+  }
+  
+  setPhone(value);};
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -81,13 +132,15 @@ const LoginForm = () => {
           setErrorMessage("ایمیل و یا رمز عبوری اشتباه است.");
         }
       } else {
-        const user = { email, password };
+        const user = { email, password, name, phone };
         localStorage.setItem("user", JSON.stringify(user));
         console.log("Account registered:", email);
         setErrorMessage("");
         setIsLogin(true);
         setEmail("");
         setPassword("");
+        setName("");
+        setPhone("");
         // console.log("Account sign uped:", email);
         // setErrorMessage("");
         // setIsLogin(true);
@@ -105,6 +158,36 @@ const LoginForm = () => {
     <div className="form-group">
       <form onSubmit={handleSubmit}>
         <h1>{isLogin ? "ورود کاربر" : "ثبت نام"}</h1>
+         {/* vv */}
+        {!isLogin && (<>
+  
+        <div className="input-box">
+          <input
+          type="text"
+          placeholder="نام"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          />
+         <FaUser className="icon" />
+        </div>
+
+        <div className="input-box telDetail">
+         <input
+          type="tel"
+          
+          placeholder="شماره تلفن (09123456789)"
+          value={phone}
+          onChange={handlePhoneChange}
+          
+          required
+        />
+         <FaPhone className="icon" />
+       </div>
+       {phoneError && <p className="error-message">{phoneError}</p>} 
+       </>)}
+
+
         <div className="input-box">
           <input
             type="email"
@@ -115,6 +198,7 @@ const LoginForm = () => {
           />
           <FaUser className="icon" />
         </div>
+        {emailError && <p className="error-message">{emailError}</p>}
         <div className="input-box">
           <input
             type={showPassword ? "text" : "password"}
@@ -131,6 +215,11 @@ const LoginForm = () => {
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </span>
         </div>
+        {passwordError && <p className="error-message">{passwordError}</p>}
+       
+      
+
+
         {/* meow */}
         <div className="captcha-container">
           <div className="captcha-box">
@@ -150,14 +239,18 @@ const LoginForm = () => {
           {captchaError && <p className="error-message-captcha">{captchaError}</p>}
         </div>
         {/* meow */}
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        <div className="remember-forgot">
-          <label>
-            <input type="checkbox" className="check-boxx" />
-            مرا به خاطر بسپار
-          </label>
-          <a href="#"> فراموشی رمز؟</a>
-        </div>
+        
+        {isLogin && (<div className="remember-forgot">
+  
+         <label>
+         <input type="checkbox" className="check-boxx" />
+          مرا به خاطر بسپار
+         </label>
+         <a href="#"> فراموشی رمز؟</a></div>)}
+          
+
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+
         <button type="submit"  className={`btn ${loading ? "loading" : ""}`}>
           {loading ? "Loading..." : isLogin ? "ورود " : "ثبت نام"}
         </button>
@@ -166,14 +259,14 @@ const LoginForm = () => {
             {isLogin ? (
               <>
                 حساب کاربری ندارید؟{" "}
-                <a href="#" onClick={() => setIsLogin(false)}>
+                <a href="#"onClick={() => {clearFormFields();setIsLogin(false);}}>
                   ساخت حساب کاربری
                 </a>
               </>
             ) : (
               <>
                 قبلاً ثبت نام کرده‌اید؟{" "}
-                <a href="#" onClick={() => setIsLogin(true)}>
+                <a href="#"onClick={() => {clearFormFields();setIsLogin(true); }} >
                   ورود کاربر
                 </a>
               </>

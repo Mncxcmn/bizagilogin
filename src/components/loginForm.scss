@@ -1,23 +1,19 @@
 .form-group {
-  width: 90%;
-  width: 420px;
+ width: 420px;
   background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   color: #fffffff2;
   border-radius: 16px;
-  padding: 3rem ;
+  padding: 3rem;
   margin: auto;
   position: relative;
   z-index: 10;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
+  flex-direction: column; 
   justify-content: center;
-  align-items: center;
-  margin-left: auto;
   box-sizing: border-box;
-  border: 0 solid #e5e7eb;
-  z-index: 1;
 }
 
 .form-side {
@@ -31,13 +27,34 @@
   font-size: 36px;
   text-align: center;
 }
-
-.form-group .input-box {
+.input-box {
   position: relative;
+  margin: 25px 0;
+}
+
+.input-box input {
   width: 100%;
   height: 50px;
-  margin: 30px 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 40px;
+  font-size: 16px;
+  color: white;
+  padding: 0 45px 0 20px;
+  transition: all 0.3s;
 }
+
+.input-box input:focus {
+  border-color: #f08b1d;
+  box-shadow: 0 0 0 3px rgba(240, 139, 29, 0.2);
+  background: rgba(255, 255, 255, 0.15);
+}
+// .form-group .input-box {
+//   position: relative;
+//   width: 100%;
+//   height: 50px;
+//   margin: 30px 0;
+// }
 
 .input-box input {
   width: 100%;
@@ -50,10 +67,22 @@
   font-size: 16px;
   color: white;
   padding: 20px 45px 20px 20px;
+  transition: all 0.3s ease;
+}
+.input-box input:focus {
+  border-color: #f08b1d; 
+  box-shadow: 0 0 0 3px rgba(240, 139, 29, 0.2); 
 }
 
+.input-box input:hover {
+  border-color: rgba(255, 255, 255, 0.4); 
+}
 .input-box input::placeholder {
-  color: white;
+  color: rgba(255, 255, 255, 0.7); 
+  transition: opacity 0.3s;
+}
+.input-box input:focus::placeholder {
+  opacity: 0.5; 
 }
 
 .input-box .icon {
@@ -88,20 +117,6 @@
   text-decoration: underline;
 }
 
-.form-group button {
-  width: 100%;
-  height: 45px;
-  background: #f08b1d;
-  border: none;
-  outline: none;
-  border-radius: 40px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  font-size: 16px;
-  color: #333;
-  font-weight: 700;
-  display: block;
-}
 
 
 
@@ -122,12 +137,7 @@
   text-decoration: underline;
 }
 
-.error-message {
-  position: relative;
-  color: red;
-  font-size: 0.9rem;
-  top: -30px;
-}
+
 
 .toggle-password {
   position: absolute;
@@ -141,7 +151,7 @@
 .captcha-container {
   margin-top: 15px;
   margin-bottom: 45px;
-  display: flex;
+  display:flex;
   align-items: center;
   gap: 10px;
   direction: ltr;
@@ -160,19 +170,6 @@
   color: #2e2e2e; 
 }
 
-.captcha-box button {
-  background: none;
-  border: none;
-  color: #f08b1d; 
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-
-.captcha-box button:hover {
-  color: #cc710e; 
-  transform: scale(1.05);
-}
 
 
 .captcha-input {
@@ -190,26 +187,10 @@
 }
 
 
-
-  .error-message-captcha {
-  color: red;
-  font-size: 0.8rem;
-  margin-top: 6px;
-  padding: 5px 4px;
-  background: rgba(255, 77, 77, 0.1);
-  border-left: 3px solid red;
-  border-radius: 0 4px 4px 0;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  animation: fadeIn 0.3s ease-out;
+.telDetail input{
+   direction: rtl;
+    text-align: right;
 }
-
-.error-message-captcha::before {
-  content: "⚠";
-  font-size: 10px;
-}
-
 
 
 
@@ -285,6 +266,10 @@
 
   .image-side {
     height: 200px;
+  }
+   .form-group {
+    width: 90%;
+    padding: 2rem;
   }
 }
 

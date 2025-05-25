@@ -1,0 +1,31 @@
+.error-message-captcha {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 6px;
+  padding: 5px 4px;
+  background: rgba(255, 77, 77, 0.1);
+  border-left: 3px solid red;
+  border-radius: 0 4px 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.error-message-captcha::before {
+  content: "⚠";
+  font-size: 10px;
+}
+.error-message {
+    position: relative;
+    
+  color: red; 
+  font-size: 0.8rem;
+  margin: 4px 0 10px; 
+  padding: 4px 8px;
+  background: rgba(255, 77, 79, 0.1); /* پس‌زمینه هشدار ملایم */
+  border-radius: 4px;
+  display: inline-block;
+  animation: fadeIn 0.3s ease;
+}
+
